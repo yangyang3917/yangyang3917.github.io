@@ -1,0 +1,34 @@
+/* 定义渐变文本样式 */
+.jianbianwenben {
+    /* 使用 CSS 变量定义默认渐变颜色（可自定义修改） */
+    --color-start: #ff6b6b;  /* 渐变开始颜色 */
+    --color-end: #4ecdc4;    /* 渐变结束颜色 */
+    --font-size: 25px; /*字号（可自定义）*/
+    --font-weight: Light;
+
+    /* 设置线性渐变背景 */
+    background: linear-gradient(
+      90deg,  /* 渐变方向（默认水平，90deg 表示从左到右） */
+      var(--color-start), 
+      var(--color-end)
+    );
+    
+    /* 裁剪背景到文字区域 */
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: var(--font-weight);
+    font-size: var(--font-size);
+    
+    /* 隐藏原始文字颜色 */
+    color: transparent;
+    
+    display: inline-block; /* 让文本在同一行内显示，确保可以正常显示渐变效果 */
+  }
+  /*Bold	粗体
+BoldItalic	粗体斜体
+Italic	斜体
+Light	细体
+LightItalic	斜细体
+Medium	中等
+MediumItalic	中等斜体
+Regular	标准*/
