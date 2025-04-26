@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原神启动！！！</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* 隐藏滚动条 */
+        }
+        
+        #bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url('img/genshin_start.png'); /* 固定背景图片 */
+            background-size: cover;
+            background-position: center;
+        }
+        
+        #content {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: Arial, sans-serif;
+        }
+        
+        #play-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            display: none; /* 默认隐藏 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定背景容器 -->
+    <div id="bg-container"></div>
+    
+    <!-- 播放按钮（备用） -->
+    <button id="play-button">点击播放音乐</button>
+    
+    <!-- 音频元素 -->
+    <audio id="bgm" loop>
+        <source src="audio/genshin_start.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+
+    <script>
+        // ====================== 自动全屏部分 ======================
+        function enterFullscreen() {
+            const element = document.documentElement;
+            
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
+        }
+        
+        // 检测用户交互后尝试全屏
+        document.addEventListener('click', function() {
+            enterFullscreen();
+        }, { once: true }); // 只执行一次
+        
+        // ====================== 自动播放音频部分 ======================
+        const bgm = document.getElementById('bgm');
+        const playButton = document.getElementById('play-button');
+        
+        // 自动播放音频（需要用户交互后）
+        document.addEventListener('click', function() {
+            // 解除静音
+            bgm.muted = false;
+            
+            // 尝试播放
+            bgm.play().catch(e => {
+                console.log('自动播放被阻止:', e);
+                // 如果自动播放被阻止，显示播放按钮
+                playButton.style.display = 'block';
+            });
+        }, { once: true });
+        
+        // 播放按钮点击事件
+        playButton.addEventListener('click', function() {
+            bgm.play();
+            playButton.style.display = 'none';
+        });
+        
+        // 自动尝试全屏和播放（有些浏览器允许）
+        setTimeout(() => {
+            enterFullscreen();
+            bgm.muted = false;
+            bgm.play().catch(e => console.log('自动播放被阻止'));
+        }, 1000);
+    </script>
+</body>
+</html>
