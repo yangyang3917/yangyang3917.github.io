@@ -1,96 +1,30 @@
 <!doctype html>
 <html lang="zh">
 <head>
-    <style>
-        /* CSS 样式 */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        #bg-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-size: cover;
-            background-position: center;
-            transition: background-image 0.5s ease-in-out;
-        }
-    </style>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yangyang3917的网页</title>
+    <title>主界面 - yangyang3917的网页</title>
     <!-- 引入外部 CSS 文件 -->
     <link rel="stylesheet" href="css/jianbianwenben.css">
+	<link rel="stylesheet" href="css/background.css">
+	<link rel="stylesheet" href="css/button.css">
 </head>
 <body>
-    <!-- 背景容器 -->
-    <div id="bg-container"></div>
-
-    <!-- JavaScript 代码 -->
-    <script>
-        // 获取背景容器
-        const bgContainer = document.getElementById('bg-container');
-
-        // 更新背景图片
-        function updateBackground() {
-            const img = new Image();
-            
-            img.onload = function() {
-                // 获取最终图片 URL（自动处理重定向）
-                const currentUrl = this.src;
-                
-                // 检查是否需要更新（避免重复加载）
-                const lastUrl = localStorage.getItem('dailyBg');
-                if (lastUrl !== currentUrl) {
-                    bgContainer.style.backgroundImage = `url("${currentUrl}")`;
-                    localStorage.setItem('dailyBg', currentUrl);
-                    localStorage.setItem('lastUpdate', Date.now());
-                }
-            };
-            
-            img.onerror = function() {
-                console.log('背景加载失败，使用上次缓存的图片');
-                const lastUrl = localStorage.getItem('dailyBg');
-                if (lastUrl) bgContainer.style.backgroundImage = `url("${lastUrl}")`;
-            };
-
-            // 请求图片（自动处理重定向）
-            img.src = 'http://tool.liumingye.cn/bingimg/img.php';
-        }
-
-        // 检查是否需要更新（每天更新一次）
-        const lastUpdate = localStorage.getItem('lastUpdate');
-        if (!lastUpdate || Date.now() - lastUpdate > 86400000) {
-            updateBackground(); // 如果超过 24 小时，更新背景
-        } else {
-            const cachedUrl = localStorage.getItem('dailyBg');
-            if (cachedUrl) bgContainer.style.backgroundImage = `url("${cachedUrl}")`;
-        }
-    </script>
 <p>
     <span onclick="alert('你闲的没事点标题干啥......')" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
 </p>
-<p> </p>
 <p class="jianbianwenben" style="--color-start: #ff0000; --color-end: #f031ba; --font-size: 30px; --font-weight: medium;">
     当前位置：主界面（<a href="index.html" target="_blank">index.html</a>）
 </p>
-<p> </p>
 <p>
     <a href="somelink.html" target="_blank" class="jianbianwenben" style="--color-start: #ee00ff; --color-end: #f885c1;">一些链接（点击打开）</a>
 </p>
-<p> </p>
 <p>
     <a href="zhenghuo.html" target="_blank" class="jianbianwenben" style="--color-start: #000000; --color-end: #a9a9a9;">整活区（点击打开）</a>
 </p>
-<p> </p>
 <p>
     <a href="https://github.com/yangyang3917/yangyang3917.github.io" target="_blank" class="jianbianwenben" style="--color-start: #26ff00; --color-end: #ffff01;">查看源码（点击打开）</a>
 </p>
-
+  <!-- 引用外部 JS（defer 保证 DOM 加载后执行） -->
+  <script src="js/background.js" defer></script>
 </body>
 </html>
