@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+	<title>文档 - yangyang3917的网页</title>
+<style>
+body {
+  background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+  transition: background-image 0.5s ease;
+}
+</style>
+</head>
+<body>
+<h1 id="文档">文档</h1>
+
+<h2 id="1.渐变文本">1.渐变文本</h2>
+
+<h3 id="用法">用法</h3>
+
+<h4 id="①先在html的head部分引入渐变文本css（位于根目录cssjianbianwenben.css）：">①先在html的head部分引入渐变文本css（位于根目录/css/jianbianwenben.css）：</h4>
+
+<p><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/jianbianwenben.css&quot;&gt;</code></p>
+
+<h4 id="②在html代码中调用渐变文本css：">②在html代码中调用渐变文本css：</h4>
+
+<p><code>&lt;p class=&quot;jianbianwenben&quot; style=&quot;--color-start: #ff0000; --color-end: #f031ba; --font-size: 30px; --font-weight: medium;&quot;&gt;文本&lt;/p&gt;</code></p>
+
+<p>可以使用<strong>style=&#8220;&#8221;</strong>来自定义渐变起始颜色（变量名为<strong>“&#8211;color- start”</strong>，默认为#ff6b6b）、终止颜色（变量名为<strong>“&#8211;color-end”</strong>，默认为#4ecdc4）、字号（变量名为<strong>“&#8211;font-size”</strong>，默认为25px）和字重（变量名为<strong>“&#8211;font-weight”</strong>，默认为Light）</p>
+
+<h3 id="附件">附件</h3>
+
+<p><strong>字重对照表</strong></p>
+
+<table>
+<colgroup>
+<col />
+<col />
+</colgroup>
+
+<thead>
+<tr>
+	<th> 字重   </th>
+	<th> 对应中文 </th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+	<td> Bold   </td>
+	<td> 粗体  </td>
+</tr>
+<tr>
+	<td> BoldItalic </td>
+	<td> 粗体斜体 </td>
+</tr>
+<tr>
+	<td> Italic  </td>
+	<td> 斜体 </td>
+</tr>
+<tr>
+	<td> Light  </td>
+	<td> 细体 </td>
+</tr>
+<tr>
+	<td> LightItalic </td>
+	<td> 斜细体 </td>
+</tr>
+<tr>
+	<td> Medium  </td>
+	<td> 中等 </td>
+</tr>
+<tr>
+	<td> MediumItalic </td>
+	<td> 中等斜体 </td>
+</tr>
+<tr>
+	<td> Regular  </td>
+	<td> 标准 </td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="另：链接文本中的用法">另：链接文本中的用法</h3>
+
+<p>若想在链接文本（点击文本后打开链接）上添加渐变颜色，只需这样写即可</p>
+
+<p><code>&lt;a href=&quot;链接&quot; target=&quot;_blank&quot; class=&quot;jianbianwenben&quot; style=&quot;--color-start: #26ff00; --color-end: #ffff01;&quot;&gt;文本&lt;/a&gt;</code></p>
+
+<h2 id="2.通知系统">2.通知系统</h2>
+
+<h3 id="用法">用法</h3>
+
+<h4 id="①先在html的head部分引入通知系统css（位于根目录cssnotifications.css）：">①先在html的head部分引入通知系统css（位于根目录/css/notifications.css）：</h4>
+
+<p><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/notifications.css&quot;&gt;</code></p>
+
+<h4 id="②在html中添加script标签来定义通知函数（同时也引入通知管理器js，路径在根目录jsnotificationmanager.js）：">②在html中添加<code>&lt;script&gt;</code>标签来定义通知函数（同时也引入通知管理器js，路径在根目录/js/notificationManager.js）：</h4>
+
+<pre><code>    &lt;script type=&quot;module&quot;&gt;
+   import NotificationManager from './js/notificationManager.js';
+
+        window.<em>[通知函数名]</em> = () =&gt; {
+            NotificationManager.getInstance().add(
+                'success',<em>//通知类型，可用值：success（绿底）、warn（黄底）、error（红底）和info（蓝底）</em>
+                '文件上传成功',<em>//通知标题（加粗）</em>
+                '耗时 2.3 秒，大小 15.6 MB',<em>//通知内容</em>
+                {
+                    enterDuration: 300,<em>// 进入动画时间（单位：ms）</em>
+                    exitDuration: 500,<em>// 退出动画时间（单位：ms）</em>
+                    displayDuration: 4500 <em>// 显示时间（单位：ms）</em>
+                }
+            );
+        };
+	&lt;/script&gt;
+</code></pre>
+
+<h4 id="③在代码中直接调用通知函数名，如点击按钮通知则为：">③在代码中直接调用<em>[通知函数名]</em>，如点击按钮通知则为：</h4>
+
+<p><code>&lt;button onclick=&quot;<em>[通知函数名()]</em>&quot;按钮显示的文字&gt;&lt;/button&gt;</code></p>
+
+<h2 id="3.背景">3.背景</h2>
+
+<h3 id="关于">关于</h3>
+
+<p>背景是调用的刘明野的工具箱的每日Bing图的api实现一天一更新的</p>
+
+<h3 id="用法">用法</h3>
+
+<h4 id="①先在html的head部分引入背景css（位于根目录cssbackground.css）：">①先在html的head部分引入背景css（位于根目录/css/background.css）：</h4>
+
+<p><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/background.css&quot;&gt;</code></p>
+
+<h4 id="②再在html的body部分引入背景js（位于根目录jsbackground.js）：">②再在html的body部分引入背景js（位于根目录/js/background.js）：</h4>
+
+<p><code>&lt;script src=&quot;js/background.js&quot; defer&gt;&lt;/script&gt;</code></p>
+
+<h4 id="③在访问网页时等待加载即可（只有每天第一次访问才需要联网获取）">③在访问网页时等待加载即可（只有每天第一次访问才需要联网获取）</h4>
+
+</body>
+</html>

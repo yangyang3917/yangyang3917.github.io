@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <title>一些链接 - yangyang3917的网页</title>
     <!-- 引入外部 CSS 文件 -->
+    <link rel="stylesheet" href="css/notifications.css">
     <link rel="stylesheet" href="css/jianbianwenben.css">
     <link rel="stylesheet" href="css/background.css">
 </head>
 <body>
 <p>
-    <span onclick="alert('你闲的没事点标题干啥......')" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
+    <span onclick="YouWhyClickTitle()" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
 </p>
 <p></p>
 <p class="jianbianwenben" style="--color-start: #ff0000; --color-end: #f031ba; --font-size: 30px; --font-weight: medium;">
@@ -38,6 +39,22 @@
 <p>
     <a href="index.html" target="_blank" class="jianbianwenben" style="--color-start: #8400ff; --color-end: #f7ff01;" text-decoration: underline>返回上一页（点击）</a>
 </p>
+<script type="module">
+    import NotificationManager from './js/notificationManager.js';
+ 
+         window.YouWhyClickTitle = () => {
+             NotificationManager.getInstance().add(
+                 'info',
+                 '提醒',
+                 '你闲的没事点标题干啥……',
+                 {  // 自定义参数
+                     enterDuration: 300,   // 进入动画时间
+                     exitDuration: 300,    // 退出动画时间
+                     displayDuration: 2000 // 显示时间
+                 }
+             );
+         };
+</script>
   <!-- 引用外部 JS（defer 保证 DOM 加载后执行） -->
   <script src="js/background.js" defer></script>
 </body>
