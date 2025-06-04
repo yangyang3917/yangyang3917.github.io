@@ -10,7 +10,7 @@
 </head>
 <body>
 <p>
-    <span onclick="notification_YouWhyClickTitle()" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
+    <span onclick="notification_ClickTitle()" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
 </p>
 <p> </p>
 <p class="jianbianwenben" style="--color-start: #ff0000; --color-end: #f031ba; --font-size: 30px; --font-weight: medium;">
@@ -31,7 +31,7 @@
 <script type="module">
     import NotificationManager from './js/notificationManager.js';
  
-         window.notification_YouWhyClickTitle = () => {
+         window.notification_ClickTitle = () => {
              NotificationManager.getInstance().add(
                  'info',
                  '提醒',
