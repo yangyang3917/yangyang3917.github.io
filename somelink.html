@@ -10,12 +10,13 @@
 </head>
 <body>
 <p>
-    <span onclick="YouWhyClickTitle()" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
+    <span onclick="notification_YouWhyClickTitle()" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
 </p>
 <p></p>
 <p class="jianbianwenben" style="--color-start: #ff0000; --color-end: #f031ba; --font-size: 30px; --font-weight: medium;">
     当前位置：一些链接（<a href="somelink.html">somelink.html</a>）
-</p><p></p>
+</p>
+<hr style="width: 100%; border: none; border-top: 2px dashed black; margin: 20px auto;"></hr>
 <p class="jianbianwenben" style="--color-start: #09ff00; --color-end: #eaff00; --font-size: 30px; --font-weight: medium;">以下链接均为点击即可打开
 </p>
 <p>
@@ -36,16 +37,18 @@
 <p>
     <a href="https://music.gdstudio.xyz" target="_blank" class="jianbianwenben" style="--color-start: #FFBFFF; --color-end: #FF8896;" text-decoration: underline>GD音乐台</a>
 </p>
+<hr style="width: 100%; border: none; border-top: 2px dashed black; margin: 20px auto;"></hr>
 <p>
     <a href="https://github.com/yangyang3917/yangyang3917.github.io" target="_blank" class="jianbianwenben" style="--color-start: #26ff00; --color-end: #ff010e;" text-decoration: underline>查看源码（点击打开）</a>
 </p>
 <p>
     <a href="index.html" class="jianbianwenben" style="--color-start: #8400ff; --color-end: #f7ff01;" text-decoration: underline>返回上一页（点击）</a>
 </p>
+<p class="jianbianwenben" style="--color-start: #000000; --color-end: #000000;--font-size: 15px;">powered by<a href="https://docs.github.com/pages">GitHub Pages</a></p>
 <script type="module">
     import NotificationManager from './js/notificationManager.js';
  
-         window.YouWhyClickTitle = () => {
+         window.notification_YouWhyClickTitle = () => {
              NotificationManager.getInstance().add(
                  'info',
                  '提醒',

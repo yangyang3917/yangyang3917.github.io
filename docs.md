@@ -1,3 +1,4 @@
+[前往网页](https://yangyang3917.github.io)
 # 文档
 
 ## 1.渐变文本
