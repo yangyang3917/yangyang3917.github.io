@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>一些链接 - yangyang3917的网页</title>
+    <!-- 引入外部 CSS 文件 -->
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/jianbianwenben.css">
+    <link rel="stylesheet" href="css/background.css">
+</head>
+<body>
+<p>
+    <span onclick="notification_ClickTitle()" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
+</p>
+<p class="jianbianwenben" style="--color-start: #ff0000; --color-end: #f031ba; --font-size: 30px; --font-weight: medium;">
+    当前位置：一些链接（旧版）（<a href="somelink_old.html">somelink_old.html</a>）
+</p>
+<a href="somelink.html" target="_blank" class="jianbianwenben" style="--color-start: #0404A3; --color-end: #0404A3;  --font-size: 35px;">新版（点击跳转）</a>
+<hr style="width: 100%; border: none; border-top: 2px dashed black; margin: 20px auto;"></hr>
+<p class="jianbianwenben" style="--color-start: #09ff00; --color-end: #eaff00; --font-size: 30px; --font-weight: medium;">以下链接均为点击即可打开
+</p>
+<span class="jianbianwenben" style="--color-start: #ff0000; --color-end: #ff0000; --font-size: 30px; --font-weight: medium;">
+    提醒：本界面仅作归档处理，将不再更新，若想查看更多，请前往<a href="somelink.html">新版</a>
+</span>
+<p>
+    <a href="https://center.mcmod.cn/1040311/" target="_blank" class="jianbianwenben" style="--color-start: #22ff00; --color-end: #00ffff;">我的MC百科主页</a>
+</p>
+<p>
+    <a href="https://pan.huang1111.cn/s/GlZBiW" target="_blank" class="jianbianwenben" style="--color-start: #4c00ff; --color-end: #00ffea;" text-decoration: underline>伴奏音乐（不定时更新）</a>
+</p>
+<p>
+    <a href="https://yuanbao.tencent.com" target="_blank" class="jianbianwenben" style="--color-start: #ff7b00; --color-end: #ffce9f;" text-decoration: underline>腾讯元宝（有deepseek哦，本网页的渐变文字css样式就是用deepseek写的）</a>
+</p>
+<p>
+    <a href="https://tools.liumingye.cn" target="_blank" class="jianbianwenben" style="--color-start: #ff00f7; --color-end: #00ff26;" text-decoration: underline>刘明野的工具箱（本网页的背景来自其中的每日bing图）</a>
+</p>
+<p>
+    <a href="https://github.akams.cn/" target="_blank" class="jianbianwenben" style="--color-start: #4c00ff; --color-end: #00ffea;" text-decoration: underline>GitHub文件代理加速</a>
+</p>
+<p>
+    <a href="https://music.gdstudio.xyz" target="_blank" class="jianbianwenben" style="--color-start: #FFBFFF; --color-end: #FF8896;" text-decoration: underline>GD音乐台</a>
+</p>
+<hr style="width: 100%; border: none; border-top: 2px dashed black; margin: 20px auto;"></hr>
+<p>
+    <a href="https://github.com/yangyang3917/yangyang3917.github.io" target="_blank" class="jianbianwenben" style="--color-start: #26ff00; --color-end: #ff010e;" text-decoration: underline>查看源码（点击打开）</a>
+</p>
+<p>
+    <a href="index.html" class="jianbianwenben" style="--color-start: #8400ff; --color-end: #f7ff01;" text-decoration: underline>返回上一页（点击）</a>
+</p>
+<p class="jianbianwenben" style="--color-start: #000000; --color-end: #000000;--font-size: 15px;">powered by <a href="https://docs.github.com/pages" target="_blank"">GitHub Pages</a></p>
+<script type="module">
+    import NotificationManager from './js/notificationManager.js';
+ 
+         window.notification_ClickTitle = () => {
+             NotificationManager.getInstance().add(
+                 'info',
+                 '提醒',
+                 '你闲的没事点标题干啥……',
+                 {  // 自定义参数
+                     enterDuration: 300,   // 进入动画时间
+                     exitDuration: 300,    // 退出动画时间
+                     displayDuration: 2000 // 显示时间
+                 }
+             );
+         };
+		 	        // 页面加载完成后立即触发
+    window.addEventListener('DOMContentLoaded', () => {
+             NotificationManager.getInstance().add(
+                 'warn',
+                 '提醒',
+                 '本界面仅作归档处理，将不再更新，若想查看更多，请前往新版',
+                 {
+                     enterDuration: 300,
+                     exitDuration: 500,
+                     displayDuration: 100000
+                 }
+             );
+		 });
+</script>
+  <!-- 引用外部 JS（defer 保证 DOM 加载后执行） -->
+  <script src="js/background.js" defer></script>
+</body>
+</html>
