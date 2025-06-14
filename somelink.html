@@ -346,18 +346,18 @@
              );
          };
 	         // 页面加载完成后立即触发
-    window.addEventListener('DOMContentLoaded', () => {
-             NotificationManager.getInstance().add(
-                 'success',
-                 '喜报',
-                 '本界面已重新布局，新的布局更加美观，也更加实用',
-                 {
-                     enterDuration: 300,
-                     exitDuration: 500,
-                     displayDuration: 5000
-                 }
-             );
-		     });
+    // window.addEventListener('DOMContentLoaded', () => {
+    //          NotificationManager.getInstance().add(
+    //              'success',
+    //              '喜报',
+    //              '本界面已重新布局，新的布局更加美观，也更加实用',
+    //              {
+    //                  enterDuration: 300,
+    //                  exitDuration: 500,
+    //                  displayDuration: 5000
+    //              }
+    //          );
+	// 	     });
 		   window.notification_ClickSmallText = () => {
              NotificationManager.getInstance().add(
                  'info',
