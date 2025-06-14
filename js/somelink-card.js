@@ -48,11 +48,19 @@ if (!site) return;
 
 // 更新详情内容
 detailIcon.style.backgroundImage = `url('${site.icon}')`;
-detailTitle.textContent = site.name;
+// detailTitle.textContent = `${site.name}`.trim();
 detailContent.innerHTML = `
-<p><strong>网站地址：</strong><a href="${site.url}" target="_blank">${site.url}</a></p>
-<p>${site.detail}</p>
+<div class="card-noborder"><font size=15><b><center>${site.name}</center></font></b></div><strong>网站地址：</strong><a href="${site.url}" target="_blank">${site.url}</a><br><br><font size=4>${site.detail}</font>
 `;
+
+//原文：
+// 更新详情内容
+// detailIcon.style.backgroundImage = `url('${site.icon}')`;
+// detailTitle.textContent = `<p>${site.name}</p>`;
+// detailContent.innerHTML = `
+// <p><strong>网站地址：</strong><a href="${site.url}" target="_blank">${site.url}</a></p>
+// <p>${site.detail}</p>
+// `;
 
 // 设置访问按钮链接
 document.getElementById('visitButton').href = site.url;
