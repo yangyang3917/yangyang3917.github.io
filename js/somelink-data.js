@@ -86,5 +86,21 @@ const websites = [
 		url: "https://extract.pics",
 		description: "网页上的图片获取器",
 		detail: "<mark><b>注意：该网站不支持中文，请使用翻译器</b></mark><br><b>Find Every Image</b><br>We use many different methods and strategies to find all relevant images on an website. This includes background images, dynamically loaded or embedded images and SVG elements.<hr width=100%></hr><b>Automatic Image Analysis</b><br>Every discovered image is analysed to find its dimensions, type, size and name. With more advanced features to come in the future.<hr width=100%></hr><b>Useful Tools</b><br>View all images in a grid or list, search for specific ones by name, filter by type and sort by width, height and other properties to find exactly what you are looking for.<hr width=100%></hr><b>Easy Download</b><br>Download invididual images or select the ones you want and download them all at once. Alternatively, you can also only copy the URLs to the clipboard."
+	},
+	{
+		id: 12,
+		name: "五弹幕",
+		icon: "./img/website-icon/5dm.png",
+		url: "https://5dm.me",
+		description: "干净的追番弹幕网站",
+		detail: "干净无广告免登录的追番弹幕网站<br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>吐槽：注册要花40元买邀请码……<em>（小声）</em></span>"
+	},
+	{
+		id: 13,
+		name: "<font color=#E48D21>猜盐</font>（原炒饭小测验）",
+		icon: "./img/website-icon/xiaoce.png",
+		url: "https://xiaoce.fun",
+		description: "免登录小测验平台，做题也可以很快乐",
+		detail: "<mark>（使用http协议和https协议访问均可）</mark><br>免登录小测验平台（之前的ai猜病就是他家的小程序）"
 	}
 	]
