@@ -3,14 +3,8 @@
 <head>
     <meta charset="utf-8">
 	<title>文档 - yangyang3917的网页</title>
-<style>
-body {
-  background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
-  transition: background-image 0.5s ease;
-}
-</style>
 </head>
-<body>
+<body style="background-color:#f7f7f0">
 <a href="https://yangyang3917.github.io">前往网页</a>
 <h1 id="文档">文档</h1>
 
@@ -20,7 +14,10 @@ body {
 
 <h4 id="①先在html的head部分引入渐变文本css（位于根目录cssjianbianwenben.css）：">①先在html的head部分引入渐变文本css（位于根目录/css/jianbianwenben.css）：</h4>
 
-<p><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/jianbianwenben.css&quot;&gt;</code></p>
+<pre style="background-color: black;"><code>
+<span style="color:#808080">&lt;</span><span style="color:#1d73f1">link</span><span style="color:#9cdcfe"> rel</span><span style="color:#ffffff">=</span><span style="color:#ce9178">&quot;stylesheet&quot;</span><span style="color:#9cdcfe"> href</span><span style="color:#ffffff">=</span><span style="color:#ce9178">&quot;css/jianbianwenben.css&quot;</span><span style="color:#808080">&gt;</span>
+
+</code></pre>
 
 <h4 id="②在html代码中调用渐变文本css：">②在html代码中调用渐变文本css：</h4>
 
@@ -97,22 +94,24 @@ body {
 
 <h4 id="②在html中添加script标签来定义通知函数（同时也引入通知管理器js，路径在根目录jsnotificationmanager.js）：">②在html中添加<code>&lt;script&gt;</code>标签来定义通知函数（同时也引入通知管理器js，路径在根目录/js/notificationManager.js）：</h4>
 
-<pre><code>    &lt;script type=&quot;module&quot;&gt;
-   import NotificationManager from './js/notificationManager.js';
+<pre style="background-color: black;"><code>
+<span style="color:#808080">&lt;</span><span style="color:#1d73f1">script</span><span style="color:#808080">&gt;</span>
+   <span style="color:#c586c0">import</span> <span style="color:#9cdcfe">NotificationManager</span> <span style="color:#c586c0">from</span><span style="color:#ce9178"> './js/notificationManager.js'</span><span style="color:#ffffff">;</span>
 
-        window.<em>[通知函数名]</em> = () =&gt; {
-            NotificationManager.getInstance().add(
-                'success',<em>//通知类型，可用值：success（绿底）、warn（黄底）、error（红底）和info（蓝底）</em>
-                '文件上传成功',<em>//通知标题（加粗）</em>
-                '耗时 2.3 秒，大小 15.6 MB',<em>//通知内容</em>
-                {
-                    enterDuration: 300,<em>// 进入动画时间（单位：ms）</em>
-                    exitDuration: 500,<em>// 退出动画时间（单位：ms）</em>
-                    displayDuration: 4500 <em>// 显示时间（单位：ms）</em>
-                }
-            );
-        };
-	&lt;/script&gt;
+        <span style="color:#9cdcfe">window</span><span style="color:#dcdc9f">.[通知函数名] =</span><span style="color:#f19f1c"> ()</span><span style="color:#1d73f1"> =&gt;</span><span style="color:#f19f1c"> {</span>
+            <span style="color:#9cdcfe">NotificationManager</span><span style="color:#dcdc9f">.getInstance</span><span style="color:#c586c0">()</span><span style="color:#dcdc9f">.add</span><span style="color:#c586c0">(</span>
+                <span style="color:#ce9178">'success'</span><span style="color:#ffffff">,</span><span style="color:#548b4c">//通知类型，可用值：success（绿底）、warn（黄底）、error（红底）和info（蓝底）</span>
+                <span style="color:#ce9178">'文件上传成功'</span><span style="color:#ffffff">,</span><span style="color:#548b4c">//通知标题（加粗）</span>
+                <span style="color:#ce9178">'耗时 2.3 秒，大小 15.6 MB'</span><span style="color:#ffffff">,</span><span style="color:#548b4c">//通知内容</span>
+                <span style="color:#1d73f1">{</span>
+                    <span style="color:#9cdcfe">enterDuration:</span><span style="color:#a7cea8"> 300,</span><span style="color:#548b4c">// 进入动画时间（单位：ms）</span>
+                    <span style="color:#9cdcfe">exitDuration:</span><span style="color:#a7cea8"> 500,</span><span style="color:#548b4c">// 退出动画时间（单位：ms）</span>
+                    <span style="color:#9cdcfe">displayDuration:</span><span style="color:#a7cea8"> 4500 </span><span style="color:#548b4c">// 显示时间（单位：ms）</span>
+                <span style="color:#1d73f1">}</span>
+            <span style="color:#c586c0">)</span><span style="color:#ffffff">;</span>
+        <span style="color:#f19f1c">}</span><span style="color:#ffffff">;</span>
+<span style="color:#808080">&lt;/</span><span style="color:#1d73f1">script</span><span style="color:#808080">&gt;</span>
+
 </code></pre>
 
 <h4 id="③在代码中直接调用通知函数名，如点击按钮通知则为：">③在代码中直接调用<em>[通知函数名]</em>，如点击按钮通知则为：</h4>
