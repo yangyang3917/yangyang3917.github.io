@@ -11,7 +11,7 @@ const websites = [
 		id: 2,
 		name: "GD音乐台",
 		icon: "./img/website-icon/gdmusic.ico",
-		url: "https://music.gdstudio.xyz",
+		url: "https://music.gdstudio.org",
 		description: "由GD-Studio基于开源项目深度开发的音乐聚合平台。",
 		detail: "GD音乐台是基于开源项目Meting、MKOnlineMusicPlayer深度开发的网页端应用，可能是全网音质最高，音乐源最齐全的音乐聚合平台，旨在给用户提供更便捷、更HiFi的使用体验。<br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>其实有安卓版的，但是很难用<em>（小声）</em></span>"
 	},
