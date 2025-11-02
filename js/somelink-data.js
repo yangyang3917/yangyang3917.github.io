@@ -13,7 +13,7 @@ const websites = [
 		icon: "./img/website-icon/gdmusic.ico",
 		url: "https://music.gdstudio.org",
 		description: "由GD-Studio基于开源项目深度开发的音乐聚合平台。",
-		detail: "GD音乐台是基于开源项目Meting、MKOnlineMusicPlayer深度开发的网页端应用，可能是全网音质最高，音乐源最齐全的音乐聚合平台，旨在给用户提供更便捷、更HiFi的使用体验。<br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>其实有安卓版的，但是很难用<em>（小声）</em></span>"
+		detail: "GD音乐台是基于开源项目Meting、MKOnlineMusicPlayer深度开发的网页端应用，可能是全网音质最高，音乐源最齐全的音乐聚合平台，旨在给用户提供更便捷、更HiFi的使用体验。<br><br><b><span style='font-size:25' style='color:black'>2025-10-06公告</span><br><span style='color:red'>GD音乐台旧域名(<a href='https://music.gdstudio.xyz' target=_blank>music.gdstudio.xyz</a>)已被墙</span><br><span style='color:green'>GD音乐台新域名(<a href='https://music.gdstudio.org' target=_blank>music.gdstudio.org</a>)请收藏</b></span><br><span style='color:green'>* 新旧站点完全相同。国内用户直连需访问新站点，国外用户或梯子用户随意，旧站点仍可访问<br>* 安卓版 v1.x 使用旧站点，国内已无法访问<br>* 使用设置中心的导入导出歌单配置可无缝迁移到新站点。若无保存配置文件，需先连上旧站点导出</span><br><span style='color:red'>此站点将来仍可能被墙。若希望获取最新消息，可关注</span><a href='https://space.bilibili.com/13715770' target=_blank style='color:blue'>GDStudio的B站频道</a><br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>其实有安卓版的，但是很难用<em>（小声）</em></span>"
 	},
 	{
 		id: 3,
@@ -57,7 +57,7 @@ const websites = [
 	},
 	{
 		id: 8,
-		name: "<font color=#BD2D30>W3</font>school",
+		name: "<span style='color:#BD2D30'>W3</span>school",
 		icon: "./img/website-icon/w3school.png",
 		url: "https://w3school.com.cn",
 		description: "因特网上完全免费的、非盈利性的、最大的WEB开发者资源",
@@ -65,7 +65,7 @@ const websites = [
 	},
 	{
 		id: 9,
-		name: "<font color=#00E4FF>图形方格纸 </font><font size=2.5 color=#00E4FF>MyGraphPaper</font>",
+		name: "<span style='color:#00E4FF'>图形方格纸 </span><span style='color:#00E4FF;font-size:2.5'>MyGraphPaper</span>",
 		icon: "./img/website-icon/myparagraphpaper.png",
 		url: "https://www.mygraphpaper.com/index.php?lang=zh-hans",
 		description: "自定义程度极高纸张纹样制作网站",
@@ -97,7 +97,7 @@ const websites = [
 	},
 	{
 		id: 13,
-		name: "<font color=#E48D21>猜盐</font>（原炒饭小测验）",
+		name: "<span style='color:#E48D21'>猜盐</span>（原炒饭小测验）",
 		icon: "./img/website-icon/xiaoce.png",
 		url: "https://xiaoce.fun",
 		description: "免登录小测验平台，做题也可以很快乐",
