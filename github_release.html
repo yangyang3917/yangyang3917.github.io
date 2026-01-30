@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Release获取工具</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(120deg, #24292e 0%, #3a3f44 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .github-icon {
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #0366d6;
+            box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.2);
+        }
+        
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #94d3a2;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .example {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #0366d6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .releases {
+            display: none;
+            margin-top: 25px;
+        }
+        
+        .release-item {
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            background: #fafbfc;
+            transition: all 0.3s;
+        }
+        
+        .release-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        .release-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .release-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0366d6;
+        }
+        
+        .release-date {
+            color: #6a737d;
+            font-size: 14px;
+        }
+        
+        .release-body {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .assets-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .asset-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .asset-name {
+            font-weight: 500;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .asset-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .copy-btn, .download-btn {
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .copy-btn {
+            background: #6c757d;
+        }
+        
+        .copy-btn:hover {
+            background: #5a6268;
+        }
+        
+        .download-btn {
+            background: #0366d6;
+        }
+        
+        .download-btn:hover {
+            background: #0256b3;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #6a737d;
+            font-size: 14px;
+            border-top: 1px solid #eaecef;
+        }
+        
+        @media (max-width: 600px) {
+            .input-section {
+                flex-direction: column;
+            }
+            
+            input {
+                min-width: 100%;
+            }
+            
+            .release-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .asset-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .asset-actions {
+                align-self: flex-end;
+            }
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toast-icon {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><span class="github-icon">📦</span> GitHub Release获取工具</h1>
+            <p class="subtitle">无需直接访问GitHub，获取项目Release列表和下载直链</p>
+        </header>
+        
+        <div class="content">
+            <div class="input-section">
+                <input type="text" id="repoInput" placeholder="输入GitHub仓库地址，如：FCL-Team/FoldCraftLauncher">
+                <button id="fetchBtn">获取Release列表</button>
+            </div>
+            <p class="example">示例：FCL-Team/FoldCraftLauncher 或 https://github.com/FCL-Team/FoldCraftLauncher</p>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>正在获取Release信息...</p>
+            </div>
+            
+            <div class="error" id="error"></div>
+            <div class="success" id="success"></div>
+            
+            <div class="releases" id="releases"></div>
+        </div>
+        
+        <footer>
+            <p>使用GitHub官方API | 每小时最多60次请求（未认证）</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message">链接已复制到剪贴板</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const repoInput = document.getElementById('repoInput');
+            const fetchBtn = document.getElementById('fetchBtn');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const success = document.getElementById('success');
+            const releases = document.getElementById('releases');
+            const toast = document.getElementById('toast');
+            
+            // 设置示例仓库地址
+            repoInput.value = 'FCL-Team/FoldCraftLauncher';
+            
+            fetchBtn.addEventListener('click', fetchReleases);
+            
+            repoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    fetchReleases();
+                }
+            });
+            
+            function fetchReleases() {
+                const repo = parseRepoUrl(repoInput.value.trim());
+                
+                if (!repo) {
+                    showError('请输入有效的GitHub仓库地址，格式：owner/repo');
+                    return;
+                }
+                
+                // 显示加载状态
+                loading.style.display = 'block';
+                error.style.display = 'none';
+                success.style.display = 'none';
+                releases.style.display = 'none';
+                fetchBtn.disabled = true;
+                
+                // 调用GitHub API
+                fetch(`https://api.github.com/repos/${repo}/releases`)
+                    .then(response => {
+                        if (!response.ok) {
+                            if (response.status === 404) {
+                                throw new Error('仓库未找到，请检查仓库地址是否正确');
+                            } else if (response.status === 403) {
+                                throw new Error('API请求次数超限，请稍后再试');
+                            } else {
+                                throw new Error(`请求失败: ${response.status} ${response.statusText}`);
+                            }
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        loading.style.display = 'none';
+                        fetchBtn.disabled = false;
+                        
+                        if (data.length === 0) {
+                            showError('该仓库没有发布任何Release');
+                            return;
+                        }
+                        
+                        showSuccess(`成功获取到 ${data.length} 个Release`);
+                        displayReleases(data, repo);
+                    })
+                    .catch(err => {
+                        loading.style.display = 'none';
+                        fetchBtn.disabled = false;
+                        showError(err.message);
+                    });
+            }
+            
+            function parseRepoUrl(url) {
+                // 处理各种格式的输入
+                if (!url) return null;
+                
+                // 如果已经是 owner/repo 格式
+                if (/^[a-zA-Z0-9_.-]+\/[a-zA-Z0-9_.-]+$/.test(url)) {
+                    return url;
+                }
+                
+                // 处理GitHub URL
+                const match = url.match(/github\.com\/([a-zA-Z0-9_.-]+)\/([a-zA-Z0-9_.-]+)/);
+                if (match) {
+                    return `${match[1]}/${match[2]}`;
+                }
+                
+                return null;
+            }
+            
+            function displayReleases(releasesData, repo) {
+                releases.innerHTML = '';
+                
+                releasesData.forEach(release => {
+                    const releaseItem = document.createElement('div');
+                    releaseItem.className = 'release-item';
+                    
+                    const releaseDate = new Date(release.published_at).toLocaleDateString('zh-CN', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    let bodyContent = release.body || '暂无描述';
+                    if (bodyContent.length > 300) {
+                        bodyContent = bodyContent.substring(0, 300) + '...';
+                    }
+                    
+                    releaseItem.innerHTML = `
+                        <div class="release-header">
+                            <div class="release-title">${release.tag_name} - ${release.name || '未命名版本'}</div>
+                            <div class="release-date">发布时间: ${releaseDate}</div>
+                        </div>
+                        <div class="release-body">${escapeHtml(bodyContent)}</div>
+                    `;
+                    
+                    if (release.assets && release.assets.length > 0) {
+                        releaseItem.innerHTML += `<div class="assets-title">下载资源 (${release.assets.length})</div>`;
+                        
+                        release.assets.forEach(asset => {
+                            const assetItem = document.createElement('div');
+                            assetItem.className = 'asset-item';
+                            
+                            const size = formatFileSize(asset.size);
+                            const downloadUrl = asset.browser_download_url;
+                            
+                            assetItem.innerHTML = `
+                                <div class="asset-name">${asset.name} (${size})</div>
+                                <div class="asset-actions">
+                                    <button class="copy-btn" data-url="${downloadUrl}">
+                                        <span>🔗</span> 复制链接
+                                    </button>
+                                    <a href="${downloadUrl}" class="download-btn" target="_blank">
+                                        <span>⬇️</span> 下载
+                                    </a>
+                                </div>
+                            `;
+                            
+                            releaseItem.appendChild(assetItem);
+                        });
+                        
+                        // 为复制链接按钮添加事件监听器
+                        releaseItem.querySelectorAll('.copy-btn').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                const url = this.getAttribute('data-url');
+                                copyToClipboard(url);
+                            });
+                        });
+                    } else {
+                        releaseItem.innerHTML += `<div class="assets-title">此版本没有可下载的资源</div>`;
+                    }
+                    
+                    releases.appendChild(releaseItem);
+                });
+                
+                releases.style.display = 'block';
+            }
+            
+            function copyToClipboard(text) {
+                // 尝试使用现代Clipboard API
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text)
+                        .then(() => {
+                            showToast('链接已复制到剪贴板');
+                        })
+                        .catch(err => {
+                            console.error('复制失败:', err);
+                            fallbackCopyToClipboard(text);
+                        });
+                } else {
+                    // 回退方案
+                    fallbackCopyToClipboard(text);
+                }
+            }
+            
+            function fallbackCopyToClipboard(text) {
+                // 创建临时textarea元素
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                
+                // 选中并复制文本
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
+                        showToast('链接已复制到剪贴板');
+                    } else {
+                        showToast('复制失败，请手动复制链接');
+                    }
+                } catch (err) {
+                    console.error('复制失败:', err);
+                    showToast('复制失败，请手动复制链接');
+                }
+                
+                // 移除临时元素
+                document.body.removeChild(textArea);
+            }
+            
+            function showToast(message) {
+                const toastMessage = toast.querySelector('.toast-message');
+                toastMessage.textContent = message;
+                
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+            
+            function showError(message) {
+                error.textContent = message;
+                error.style.display = 'block';
+                success.style.display = 'none';
+            }
+            
+            function showSuccess(message) {
+                success.textContent = message;
+                success.style.display = 'block';
+                error.style.display = 'none';
+            }
+            
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 B';
+                const k = 1024;
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        });
+    </script>
+</body>
+</html>
