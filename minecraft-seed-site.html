@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>Minecraft种子站 - yangyang3917的网页</title>
+    <!-- 引入外部 CSS 文件 -->
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/jianbianwenben.css">
+	<link rel="stylesheet" href="css/background.css">
+</head>
+<body>
+    <span onclick="notification_ClickTitle()" class="jianbianwenben" style="--color-start: #6200ff; --color-end: #0099ff; --font-size: 45px; --font-weight: bold;">欢迎来到yangyang3917的网页</span>
+<p></p>
+    <span style="color: #ff0000;font-size: 30px">
+    当前位置：Minecraft种子站（<a href="minecraft-seed-site.html">minecraft-seed-site.html</a>）
+    </span>
+<hr style="width: 100%; border: none; border-top: 2px dashed white; margin: 20px auto;"/>
+<p>
+    <a href="https://github.com/yangyang3917/minecraft-seed-site" target="_blank" style="color: #00ff2f;font-size:25px">项目Github主页（点击打开）</a>
+</p>
+<p>
+    <a href="https://yangyang3917.github.io/minecraft-seed-site/" target="_blank" style="color: #ff9900;font-size:25px">打开网页版（推荐）</a>
+</p>
+<hr style="width: 100%; border: none; border-top: 2px dashed white; margin: 20px auto;"/>
+<p>
+    <a href="https://github.com/yangyang3917/yangyang3917.github.io" target="_blank" style="color: #ffff01;font-size:25px">查看源码（点击打开）</a>
+</p>
+<p><a href="index.html" style="color: #8400ff;font-size:25px" >返回上一页（点击）</a></p>
+<p style="color: #ffffff; font-size: 15px;">powered by <a href="https://docs.github.com/pages" target="_blank"">GitHub Pages</a></p>
+<script type="module">
+    import NotificationManager from './js/notificationManager.js';
+ 
+         window.notification_ClickTitle = () => {
+             NotificationManager.getInstance().add(
+                 'info',
+                 '提醒',
+                 '你闲的没事点标题干啥……',
+                 {  // 自定义参数
+                     enterDuration: 300,   // 进入动画时间
+                     exitDuration: 300,    // 退出动画时间
+                     displayDuration: 2000 // 显示时间
+                 }
+             );
+         };
+     </script>
+  <!-- 引用外部 JS（defer 保证 DOM 加载后执行） -->
+  <script src="js/background.js" defer></script>
+</body>
+</html>
