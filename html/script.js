@@ -32,6 +32,9 @@ class ChatApp {
         this.apiKeyInput = document.getElementById('apiKey');
         this.modelNameInput = document.getElementById('modelName');
         this.systemPromptInput = document.getElementById('systemPrompt');
+        this.temperatureInput = document.getElementById('temperature');
+        this.topPInput = document.getElementById('topP');
+        this.maxTokensInput = document.getElementById('maxTokens');
         this.autoSaveCheckbox = document.getElementById('autoSave');
         this.streamOutputCheckbox = document.getElementById('streamOutput');
 
@@ -44,7 +47,7 @@ class ChatApp {
         // 聊天记录
         this.messages = [];
         this.isGenerating = false;
-        this.currentStreamMessageIndex = null; // 当前流式输出的消息索引
+        this.currentStreamMessageIndex = null;
     }
 
     loadSettings() {
@@ -54,6 +57,9 @@ class ChatApp {
             apiKey: settings.apiKey || '',
             modelName: settings.modelName || 'gemini-gemma-4-31B-200K',
             systemPrompt: settings.systemPrompt || '你是一个乐于助人的AI助手。',
+            temperature: typeof settings.temperature === 'number' ? settings.temperature : 0.7,
+            topP: typeof settings.topP === 'number' ? settings.topP : 1.0,
+            maxTokens: typeof settings.maxTokens === 'number' ? settings.maxTokens : 2000,
             autoSave: settings.autoSave !== false,
             streamOutput: settings.streamOutput !== false
         };
@@ -63,6 +69,9 @@ class ChatApp {
         this.apiKeyInput.value = this.settings.apiKey;
         this.modelNameInput.value = this.settings.modelName;
         this.systemPromptInput.value = this.settings.systemPrompt;
+        this.temperatureInput.value = this.settings.temperature;
+        this.topPInput.value = this.settings.topP;
+        this.maxTokensInput.value = this.settings.maxTokens;
         this.autoSaveCheckbox.checked = this.settings.autoSave;
         this.streamOutputCheckbox.checked = this.settings.streamOutput;
     }
@@ -73,9 +82,28 @@ class ChatApp {
             apiKey: this.apiKeyInput.value.trim(),
             modelName: this.modelNameInput.value.trim(),
             systemPrompt: this.systemPromptInput.value.trim(),
+            temperature: parseFloat(this.temperatureInput.value) || 0.7,
+            topP: parseFloat(this.topPInput.value) || 1.0,
+            maxTokens: parseInt(this.maxTokensInput.value) || 2000,
             autoSave: this.autoSaveCheckbox.checked,
             streamOutput: this.streamOutputCheckbox.checked
         };
+
+        // 验证参数范围
+        if (this.settings.temperature < 0 || this.settings.temperature > 2) {
+            this.showMessage('Temperature必须在0-2之间', 'error');
+            return;
+        }
+        
+        if (this.settings.topP < 0 || this.settings.topP > 1) {
+            this.showMessage('Top P必须在0-1之间', 'error');
+            return;
+        }
+        
+        if (this.settings.maxTokens < 1 || this.settings.maxTokens > 10000) {
+            this.showMessage('最大Token数必须在1-10000之间', 'error');
+            return;
+        }
 
         try {
             localStorage.setItem('ai_chat_settings', JSON.stringify(this.settings));
@@ -147,6 +175,25 @@ class ChatApp {
             if (e.target === this.settingsModal) {
                 this.settingsModal.style.display = 'none';
             }
+        });
+
+        // 参数输入验证
+        this.temperatureInput.addEventListener('change', () => {
+            const value = parseFloat(this.temperatureInput.value);
+            if (value < 0) this.temperatureInput.value = 0;
+            if (value > 2) this.temperatureInput.value = 2;
+        });
+
+        this.topPInput.addEventListener('change', () => {
+            const value = parseFloat(this.topPInput.value);
+            if (value < 0) this.topPInput.value = 0;
+            if (value > 1) this.topPInput.value = 1;
+        });
+
+        this.maxTokensInput.addEventListener('change', () => {
+            const value = parseInt(this.maxTokensInput.value);
+            if (value < 1) this.maxTokensInput.value = 1;
+            if (value > 10000) this.maxTokensInput.value = 10000;
         });
     }
 
@@ -354,8 +401,9 @@ class ChatApp {
         const requestBody = {
             model: this.settings.modelName,
             messages: messages,
-            max_tokens: 2000,
-            temperature: 0.7
+            max_tokens: this.settings.maxTokens,
+            temperature: this.settings.temperature,
+            top_p: this.settings.topP
         };
 
         if (this.settings.streamOutput) {
@@ -514,6 +562,9 @@ class ChatApp {
                 this.apiKeyInput.value = this.settings.apiKey || '';
                 this.modelNameInput.value = this.settings.modelName || '';
                 this.systemPromptInput.value = this.settings.systemPrompt || '';
+                this.temperatureInput.value = this.settings.temperature || 0.7;
+                this.topPInput.value = this.settings.topP || 1.0;
+                this.maxTokensInput.value = this.settings.maxTokens || 2000;
                 this.autoSaveCheckbox.checked = this.settings.autoSave !== false;
                 this.streamOutputCheckbox.checked = this.settings.streamOutput !== false;
                 
