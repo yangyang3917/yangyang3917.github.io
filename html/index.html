@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI对话助手</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-robot"></i> AI对话助手</h1>
+            <div class="controls">
+                <button class="btn btn-outline" id="exportBtn">
+                    <i class="fas fa-download"></i>导出记录
+                </button>
+                <button class="btn btn-outline" id="importBtn">
+                    <i class="fas fa-upload"></i>导入记录
+                </button>
+                <button class="btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i>设置
+                </button>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-comments"></i>
+                <h3>开始对话</h3>
+                <p>输入您的问题开始与AI对话，历史对话会实时保存到本地</p>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <div class="input-container">
+            <div class="input-wrapper">
+                <textarea 
+                    id="messageInput" 
+                    placeholder="输入消息... (Enter换行，Ctrl+Enter发送)" 
+                    rows="3"></textarea>
+            </div>
+            <button class="btn send-btn" id="sendBtn">
+                <i class="fas fa-paper-plane"></i>发送
+            </button>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <i class="fas fa-database status-connected" id="storageStatusIcon"></i>
+                <span id="storageStatus">本地存储正常</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-history"></i>
+                <span id="messageCount">0 条消息</span>
+            </div>
+            <div class="status-item">
+                <i class="fas fa-check-circle"></i>
+                <span id="contextCount">0 条上下文</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置弹窗 -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2><i class="fas fa-cog"></i> 设置</h2>
+                <button class="close-btn" id="closeSettingsBtn">&times;</button>
+            </div>
+            <div class="settings-body">
+                <div class="form-group">
+                    <label for="apiUrl"><i class="fas fa-link"></i> API地址</label>
+                    <input type="text" id="apiUrl" placeholder="https://120101.xyz/v1">
+                </div>
+                <div class="form-group">
+                    <label for="apiKey"><i class="fas fa-key"></i> API密钥</label>
+                    <input type="password" id="apiKey" placeholder="输入您的API密钥">
+                </div>
+                <div class="form-group">
+                    <label for="modelName"><i class="fas fa-brain"></i> 模型名称</label>
+                    <input type="text" id="modelName" placeholder="gemini-gemma-4-31B-200K">
+                </div>
+                <div class="form-group">
+                    <label for="systemPrompt"><i class="fas fa-comment-dots"></i> 系统提示词</label>
+                    <textarea id="systemPrompt" placeholder="输入系统提示词..."></textarea>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="autoSave" checked>
+                    <label for="autoSave">自动保存聊天记录到本地</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="streamOutput" checked>
+                    <label for="streamOutput">启用流式输出（逐字显示）</label>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button class="btn btn-danger" id="clearChatBtn">
+                    <i class="fas fa-trash"></i>清除聊天记录
+                </button>
+                <button class="btn" id="saveSettingsBtn">
+                    <i class="fas fa-save"></i>保存设置
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文件输入（用于导入） -->
+    <input type="file" id="fileInput" class="file-input" accept=".json">
+
+    <script src="script.js"></script>
+</body>
+</html>
