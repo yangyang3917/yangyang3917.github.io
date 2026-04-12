@@ -44,6 +44,7 @@ class ChatApp {
         // 聊天记录
         this.messages = [];
         this.isGenerating = false;
+        this.currentStreamMessageIndex = null; // 当前流式输出的消息索引
     }
 
     loadSettings() {
@@ -180,20 +181,21 @@ class ChatApp {
         messageElement.className = `message ${isUser ? 'message-user' : 'message-ai'}`;
         
         const checkboxId = `msg-checkbox-${index}`;
-        const isLinked = !isUser ? 
-            this.messages[index - 1]?.linkedCheckboxId === checkboxId : 
-            this.messages[index + 1]?.linkedCheckboxId === checkboxId;
+        const pairCheckboxId = isUser ? 
+            `msg-checkbox-${index + 1}` :  // 用户消息对应后面的AI消息
+            `msg-checkbox-${index - 1}`;   // AI消息对应前面的用户消息
 
         messageElement.innerHTML = `
             ${!isUser ? `
                 <div class="message-checkbox">
                     <input type="checkbox" id="${checkboxId}" 
                            ${message.includeInContext ? 'checked' : ''}
-                           data-index="${index}">
+                           data-index="${index}"
+                           data-pair-id="${pairCheckboxId}">
                 </div>
             ` : ''}
             
-            <div class="message-content">
+            <div class="message-content ${index === this.currentStreamMessageIndex ? 'message-streaming' : ''}">
                 <div>${this.formatMessageContent(message.content)}</div>
                 <div class="message-meta">
                     <i class="fas fa-clock"></i>
@@ -206,17 +208,10 @@ class ChatApp {
                     <input type="checkbox" id="${checkboxId}" 
                            ${message.includeInContext ? 'checked' : ''}
                            data-index="${index}"
-                           ${isLinked ? 'data-linked="true"' : ''}>
+                           data-pair-id="${pairCheckboxId}">
                 </div>
             ` : ''}
         `;
-
-        // 设置链接关系
-        if (isUser && index < this.messages.length - 1) {
-            this.messages[index + 1].linkedCheckboxId = checkboxId;
-        } else if (!isUser && index > 0) {
-            this.messages[index - 1].linkedCheckboxId = checkboxId;
-        }
 
         // 添加复选框事件监听
         const checkbox = messageElement.querySelector('input[type="checkbox"]');
@@ -231,27 +226,19 @@ class ChatApp {
 
     handleCheckboxChange(e, index, isUser) {
         const isChecked = e.target.checked;
+        
+        // 更新当前消息
         this.messages[index].includeInContext = isChecked;
         
-        // 找到并更新关联的消息
-        if (isUser && index < this.messages.length - 1) {
-            const aiMsg = this.messages[index + 1];
-            if (aiMsg.role === 'assistant') {
-                aiMsg.includeInContext = isChecked;
-                const aiCheckbox = document.querySelector(`#${aiMsg.linkedCheckboxId}`);
-                if (aiCheckbox) {
-                    aiCheckbox.checked = isChecked;
-                    aiCheckbox.dataset.linked = "true";
-                }
-            }
-        } else if (!isUser && index > 0) {
-            const userMsg = this.messages[index - 1];
-            if (userMsg.role === 'user') {
-                userMsg.includeInContext = isChecked;
-                const userCheckbox = document.querySelector(`#${userMsg.linkedCheckboxId}`);
-                if (userCheckbox) {
-                    userCheckbox.checked = isChecked;
-                    userCheckbox.dataset.linked = "true";
+        // 找到并更新配对的消息
+        const pairCheckboxId = e.target.dataset.pairId;
+        if (pairCheckboxId) {
+            const pairCheckbox = document.getElementById(pairCheckboxId);
+            if (pairCheckbox) {
+                pairCheckbox.checked = isChecked;
+                const pairIndex = parseInt(pairCheckbox.dataset.index);
+                if (!isNaN(pairIndex) && this.messages[pairIndex]) {
+                    this.messages[pairIndex].includeInContext = isChecked;
                 }
             }
         }
@@ -261,6 +248,7 @@ class ChatApp {
     }
 
     formatMessageContent(content) {
+        if (!content) return '';
         return content
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -341,7 +329,7 @@ class ChatApp {
             const response = await this.sendAPIRequest(contextMessages);
             
             if (!response.ok) {
-                throw new Error(`API请求失败: ${response.status}`);
+                throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
             }
             
             if (this.settings.streamOutput) {
@@ -363,31 +351,33 @@ class ChatApp {
     }
 
     async sendAPIRequest(messages) {
-        const response = await fetch(`${this.settings.apiUrl}/chat/completions`, {
+        const requestBody = {
+            model: this.settings.modelName,
+            messages: messages,
+            max_tokens: 2000,
+            temperature: 0.7
+        };
+
+        if (this.settings.streamOutput) {
+            requestBody.stream = true;
+        }
+        
+        return fetch(`${this.settings.apiUrl}/chat/completions`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${this.settings.apiKey}`,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                model: this.settings.modelName,
-                messages: messages,
-                max_tokens: 2000,
-                temperature: 0.7,
-                stream: this.settings.streamOutput
-            })
+            body: JSON.stringify(requestBody)
         });
-        
-        return response;
     }
 
     async handleStreamResponse(response) {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let fullResponse = '';
-        let buffer = '';
         
-        // 添加一个空的消息容器
+        // 创建AI消息占位符
         const messageIndex = this.messages.length;
         this.messages.push({
             role: 'assistant',
@@ -397,36 +387,46 @@ class ChatApp {
         });
         
         // 创建消息元素
+        this.currentStreamMessageIndex = messageIndex;
         const messageElement = this.createMessageElement(this.messages[messageIndex], messageIndex);
         this.chatContainer.appendChild(messageElement);
         this.emptyState.style.display = 'none';
         
         const contentElement = messageElement.querySelector('.message-content div');
         
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split('\n');
-            buffer = lines.pop() || '';
-            
-            for (const line of lines) {
-                if (line.startsWith('data: ') && line !== 'data: [DONE]') {
-                    try {
-                        const data = JSON.parse(line.slice(6));
-                        const chunk = data.choices[0]?.delta?.content || '';
-                        if (chunk) {
-                            fullResponse += chunk;
-                            this.messages[messageIndex].content = fullResponse;
-                            contentElement.innerHTML = this.formatMessageContent(fullResponse);
-                            this.scrollToBottom();
+        try {
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                
+                const chunk = decoder.decode(value);
+                const lines = chunk.split('\n');
+                
+                for (const line of lines) {
+                    if (line.trim() === '') continue;
+                    if (line.trim() === 'data: [DONE]') continue;
+                    
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const data = JSON.parse(line.substring(6));
+                            const content = data.choices[0]?.delta?.content || '';
+                            if (content) {
+                                fullResponse += content;
+                                this.messages[messageIndex].content = fullResponse;
+                                // 直接更新文本内容，不进行格式转换
+                                contentElement.innerHTML = fullResponse.replace(/\n/g, '<br>');
+                                this.scrollToBottom();
+                            }
+                        } catch (e) {
+                            console.warn('解析流数据失败:', e, '行内容:', line);
                         }
-                    } catch (e) {
-                        console.warn('解析流数据失败:', e);
                     }
                 }
             }
+        } finally {
+            this.currentStreamMessageIndex = null;
+            // 重新渲染以移除streaming样式
+            this.renderChatHistory();
         }
         
         this.updateStatusBar();
