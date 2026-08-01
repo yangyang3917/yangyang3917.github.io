@@ -13,7 +13,7 @@ const websites = [
 		icon: "./img/website-icon/gdmusic.ico",
 		url: "https://music.gdstudio.org",
 		description: "由GD-Studio基于开源项目深度开发的音乐聚合平台。",
-		detail: "GD音乐台是基于开源项目Meting、MKOnlineMusicPlayer深度开发的网页端应用，可能是全网音质最高，音乐源最齐全的音乐聚合平台，旨在给用户提供更便捷、更HiFi的使用体验。<br><br><b><span style='font-size:25' style='color:black'>2025-10-06公告</span><br><span style='color:red'>GD音乐台旧域名(<a href='https://music.gdstudio.xyz' target=_blank>music.gdstudio.xyz</a>)已被墙</span><br><span style='color:green'>GD音乐台新域名(<a href='https://music.gdstudio.org' target=_blank>music.gdstudio.org</a>)请收藏</b></span><br><span style='color:green'>* 新旧站点完全相同。国内用户直连需访问新站点，国外用户或梯子用户随意，旧站点仍可访问<br>* 安卓版 v1.x 使用旧站点，国内已无法访问<br>* 使用设置中心的导入导出歌单配置可无缝迁移到新站点。若无保存配置文件，需先连上旧站点导出</span><br><span style='color:red'>此站点将来仍可能被墙。若希望获取最新消息，可关注</span><a href='https://space.bilibili.com/13715770' target=_blank style='color:blue'>GDStudio的B站频道</a><br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>其实有安卓版的，但是很难用<em>（小声）</em></span>"
+		detail: "GD音乐台是基于开源项目Meting、MKOnlineMusicPlayer深度开发的网页端应用，可能是全网音质最高，音乐源最齐全的音乐聚合平台，旨在给用户提供更便捷、更HiFi的使用体验。<br><br><b><span style='font-size:25' style='color:black'>2025-10-06公告</span><br><span style='color:red'>GD音乐台旧域名(<a href='https://music.gdstudio.xyz' target=_blank>music.gdstudio.xyz</a>)已被墙</span><br><span style='color:green'>GD音乐台新域名(<a href='https://music.gdstudio.org' target=_blank>music.gdstudio.org</a>)请收藏</b></span><br><span style='color:green'>* 新旧站点完全相同。国内用户直连需访问新站点，国外用户或梯子用户随意，旧站点仍可访问<br>* 安卓版 v1.x 使用旧站点，国内已无法访问<br>* 使用设置中心的导入导出歌单配置可无缝迁移到新站点。若无保存配置文件，需先连上旧站点导出</span><br><span style='color:red'>此站点将来仍可能被墙。若希望获取最新消息，可关注</span><a href='https://space.bilibili.com/13715770' target=_blank style='color:blue'>GDStudio的B站频道</a><br><span onclick='notification_ClickSmallText()' title='戳我试试' color: #abbcbd2f; font-size: 15px>其实有安卓版的，但是很难用<em>（小声）</em></span>"
 	},
 	{
 		id: 3,
@@ -29,7 +29,7 @@ const websites = [
 		icon: "./img/website-icon/tencentyuanbao.png",
 		url: "https://yuanbao.tencent.com",
 		description: "腾讯的有着deepseek和混元大模型两个AI的网页端应用。",
-		detail: "腾讯的有着deepseek和混元大模型两个AI的网页端应用。<br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>本网页的很多东西就是其中的deepseek写的<em>（小声）</em></span>"
+		detail: "腾讯的有着deepseek和混元大模型两个AI的网页端应用。<br><span onclick='notification_ClickSmallText()' title='戳我试试' style='color: #abbcbd2f; font-size: 15px'>本网页的很多东西就是其中的deepseek写的<em>（小声）</em></span>"
 	},
 	{
 		id: 5,
@@ -37,7 +37,7 @@ const websites = [
 		icon: "./img/website-icon/liumingyetools.png",
 		url: "https://tools.liumingye.cn",
 		description: "一些在线实用小工具。",
-		detail: "一些在线实用小工具。<br>其实曾经的My Free MP3就是他家的，可惜已经关了……（但是可以用GD音乐台来代替）<br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>本网页背景其实来自于他家的bing图api<em>（小声）</em></span>"
+		detail: "一些在线实用小工具。<br>其实曾经的My Free MP3就是他家的，可惜已经关了……（但是可以用GD音乐台来代替）<br><span onclick='notification_ClickSmallText()' title='戳我试试' style='color: #abbcbd2f; font-size: 15px'>本网页背景其实来自于他家的bing图api<em>（小声）</em></span>"
 	},
 	{
 		id: 6,
@@ -77,7 +77,7 @@ const websites = [
 		icon: "./img/website-icon/iconpark.png",
 		url: "https://iconpark.oceanengine.com/official",
 		description: "开源的免费可商用矢量图标下载平台",
-		detail: "字节跳动旗下的开源的、免费的、可商用的、高质量的、非常全的矢量图标平台，并且支持批量下载svg<br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>吐槽：都四五年了还是beta版呢，并且还不适配手机视图<em>（小声）</em></span>"
+		detail: "字节跳动旗下的开源的、免费的、可商用的、高质量的、非常全的矢量图标平台，并且支持批量下载svg<br><span onclick='notification_ClickSmallText()' title='戳我试试' style='color: #abbcbd2f; font-size: 15px'>吐槽：都四五年了还是beta版呢，并且还不适配手机视图<em>（小声）</em></span>"
 	},
 	{
 		id: 11,
@@ -93,7 +93,7 @@ const websites = [
 		icon: "./img/website-icon/5dm.png",
 		url: "https://5dm.me",
 		description: "干净的追番弹幕网站",
-		detail: "干净无广告免登录的追番弹幕网站<br><span onclick='notification_ClickSmallText()' title='戳我试试' class='jianbianwenben' style='--color-start: #abbcbd2f; --color-end: #abbcbd2f; --font-size: 15px;'>吐槽：注册要花40元买邀请码……<em>（小声）</em></span>"
+		detail: "干净无广告免登录的追番弹幕网站<br><span onclick='notification_ClickSmallText()' title='戳我试试' style='color: #abbcbd2f; font-size: 15px'>吐槽：注册要花40元买邀请码……<em>（小声）</em></span>"
 	},
 	{
 		id: 13,
@@ -102,5 +102,31 @@ const websites = [
 		url: "https://xiaoce.fun",
 		description: "免登录小测验平台，做题也可以很快乐",
 		detail: "<mark>（使用http协议和https协议访问均可）</mark><br>免登录小测验平台（之前的ai猜病就是他家的小程序）"
+	},
+	{
+		id: 14,
+		name: "桌游合集",
+		icon: "./img/website-icon/game_hullqin.png",
+		url: "https://game.hullqin.cn/",
+		description: "在线桌游合集，且无需登录",
+		detail: "无需登录有大量桌游的网站，无广告，聚会必备。"
+	},
+	{
+		id: 15,
+		name: "Kards <span style='color:#B5912F'>Decker</span>",
+		icon: "./img/website-icon/kards_decker.png",
+		url: "https://1939.giaory.xyz/",
+		description: "kards（一款卡牌游戏）的卡牌素材浏览和AI自动构建卡组",
+		detail: "由社区<span class='spoiler'>用ai</span>开发的<span class='spoiler'>能在国内访问的</span>kards卡图展示、检索网站，并提供API服务。<br><span onclick='notification_ClickSmallText()' title='戳我试试' style='color: #abbcbd2f; font-size: 15px'>吐槽：数据有点过期了，都是30多天前的了<em>（小声）</em></span>"
+	},
+	{
+		id: 16,
+		name: "在线litematic投影生成",
+		icon: "./img/website-icon/reden.png",
+		url: "https://redenmc.com/litematica",
+		description: "在线生成litematic格式的投影文件",
+		detail: "Reden平台中的可以分享并下载litematic格式投影的网站。"
 	}
 	]
+//color: #abbcbd2f; font-size: 15px
+//class="spoiler"
